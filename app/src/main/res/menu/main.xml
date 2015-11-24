@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/itemRechercheID"
+        android:icon="@drawable/loupe"
+        android:title="@string/rechercheTitleID"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/itemFavorisID"
+        android:icon="@drawable/favoris"
+        android:title="@string/favorisTitleID"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/itemParametresID"
+        android:icon="@drawable/parametre"
+        android:title="@string/parametreTitleID"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/itemUserID"
+        android:icon="@drawable/user"
+        android:title="@string/userTitleID"
+        app:showAsAction="always"/>
+</menu>

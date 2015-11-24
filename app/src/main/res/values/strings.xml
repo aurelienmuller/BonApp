@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">BonApp</string>
+    <string name="rechercheTitleID">Recherche</string>
+    <string name="favorisTitleID">Favoris</string>
+    <string name="parametreTitleID">Paramètres</string>
+    <string name="userTitleID">Login</string>
+
+    <string name="buttonRechRec">Recettes</string>
+    <string name="buttonRechUser">Utilisateurs</string>
+
+    <string name="textRechRec">Recherche de recettes</string>
+    <string name="rechercheUser">Recherche d\'utilisateur</string>
+    <string name="valider">Valider</string>
+</resources>
