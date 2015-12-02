@@ -6,4 +6,6 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="BonAppTheme" parent="@style/AppTheme" />
+
 </resources>
