@@ -112,7 +112,10 @@ public class searchRecipeActivity extends AppCompatActivity {
                     ListRecipes.add(recipe);
                 }
 
-                Toast.makeText(searchRecipeActivity.this, ListRecipes.toString(), Toast.LENGTH_LONG).show();
+                Intent i = new Intent(searchRecipeActivity.this, ListRecipeActivity.class);
+                i.putExtra("listRecipes", ListRecipes);
+                startActivity(i);
+                //Toast.makeText(searchRecipeActivity.this, ListRecipes.toString(), Toast.LENGTH_LONG).show();
 
             }
         } catch (JSONException e) {

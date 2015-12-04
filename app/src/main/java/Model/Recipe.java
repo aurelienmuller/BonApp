@@ -1,9 +1,13 @@
 package Model;
 
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
 /**
  * Created by etu25714 on 13/11/2015.
  */
-public class Recipe {
+public class Recipe implements Serializable {
 
     private String publisher;
     private String f2f_url;
@@ -93,7 +97,8 @@ public class Recipe {
         this.publisher_url = publisher_url;
     }
 
+    @Override
     public String toString() {
-        return this.title + " " + this.source_url;
+        return this.title;
     }
 }

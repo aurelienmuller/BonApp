@@ -14,7 +14,7 @@ import com.example.quentin.bonapp.MyApplication;
  * Created by aurelienmuller on 2/12/15.
  */
 public class RequestQueueSingleton {
-    private static RequestQueueSingleton mInstance=null;
+    private static RequestQueueSingleton mInstance = null;
     private RequestQueue mRequestQueue;
 
     private RequestQueueSingleton(){
