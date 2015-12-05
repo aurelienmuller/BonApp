@@ -59,9 +59,6 @@ public class searchRecipeActivity extends AppCompatActivity {
 
                 searchText = stringFormatter(searchText);
 
-
-                Toast.makeText(searchRecipeActivity.this, searchText, Toast.LENGTH_LONG).show();
-
                 RequestQueue requestQueue = RequestQueueSingleton.getInstance().getRequestQueue();
 
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,"http://food2fork.com/api/search?key=217401dcb0a4ad131cd118a528ce6cb4&q=" + searchText, new Response.Listener<JSONObject>() {
