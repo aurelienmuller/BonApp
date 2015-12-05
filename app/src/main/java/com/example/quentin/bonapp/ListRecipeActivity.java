@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -36,7 +38,14 @@ public class ListRecipeActivity extends AppCompatActivity {
                 ListRecipes);
         recipeListView.setAdapter(arrayAdapter);
 
-        Toast.makeText(ListRecipeActivity.this, ListRecipes.toString(), Toast.LENGTH_LONG).show();
+        recipeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent recipeIntent = new Intent(ListRecipeActivity.this, RecipeActivity.class);
+                recipeIntent.putExtra("recipe", ListRecipes.get(position));
+                startActivity(recipeIntent);
+            }
+        });
     }
 
     @Override

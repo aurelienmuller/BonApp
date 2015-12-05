@@ -3,11 +3,14 @@ package com.example.quentin.bonapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -47,32 +50,60 @@ public class searchRecipeActivity extends AppCompatActivity {
         searchEditText = (EditText) findViewById(R.id.editTextSearchRecipe);
         validateButton = (Button) findViewById(R.id.buttonValiderRech);
 
+
         validateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 searchText = searchEditText.getText().toString();
 
+                searchText = stringFormatter(searchText);
+
+
+                Toast.makeText(searchRecipeActivity.this, searchText, Toast.LENGTH_LONG).show();
+
                 RequestQueue requestQueue = RequestQueueSingleton.getInstance().getRequestQueue();
+
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,"http://food2fork.com/api/search?key=217401dcb0a4ad131cd118a528ce6cb4&q=" + searchText, new Response.Listener<JSONObject>() {
+
                     @Override
                     public void onResponse(JSONObject response) {
-                        //Toast.makeText(searchRecipeActivity.this,"RESPONSE " + response, Toast.LENGTH_SHORT).show();
+
                         parseJSONResponse(response);
+
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+
                         Toast.makeText(searchRecipeActivity.this, "ERROR " + error.getMessage(), Toast.LENGTH_SHORT).show();
 
                     }
 
                 });
+
                 requestQueue.add(request);
 
-                //startActivity(new Intent(searchRecipeActivity.this, ListRecipeActivity.class));
             }
         });
+
+        searchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView searchEditText, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_NULL
+                        && event.getAction() == KeyEvent.ACTION_DOWN) {
+                    validateButton.performClick();
+                }
+                return true;
+            }
+        });
+    }
+
+    private String stringFormatter(String text) {
+        text = text.replace(" ","%20");
+        text = text.replace("\n","%20");
+        text = text.replace(".",",");
+
+        return text;
     }
 
     private void parseJSONResponse(JSONObject response) {
@@ -82,8 +113,6 @@ public class searchRecipeActivity extends AppCompatActivity {
 
         try {
             if(response.has("recipes")) {
-
-                StringBuilder data = new StringBuilder();
 
                 JSONArray arrayRecipes = response.getJSONArray("recipes");
 
@@ -106,16 +135,19 @@ public class searchRecipeActivity extends AppCompatActivity {
 
                     String publisher_url = currentRecipe.getString("publisher_url");
 
-                    //data.append(id + " " + title + "\n" + image_url + "\n" + source_url + "\n");
 
                     Recipe recipe = new Recipe(publisher, f2f_url, title, source_url, recipe_id, image_url, social_rank, publisher_url);
                     ListRecipes.add(recipe);
                 }
 
-                Intent i = new Intent(searchRecipeActivity.this, ListRecipeActivity.class);
-                i.putExtra("listRecipes", ListRecipes);
-                startActivity(i);
-                //Toast.makeText(searchRecipeActivity.this, ListRecipes.toString(), Toast.LENGTH_LONG).show();
+                if(!ListRecipes.isEmpty()) {
+                    Intent i = new Intent(searchRecipeActivity.this, ListRecipeActivity.class);
+                    i.putExtra("listRecipes", ListRecipes);
+                    startActivity(i);
+                    ListRecipes.clear();
+                } else {
+                    Toast.makeText(searchRecipeActivity.this, this.getString(R.string.listeVide), Toast.LENGTH_LONG).show();
+                }
 
             }
         } catch (JSONException e) {

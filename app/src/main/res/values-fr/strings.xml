@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BonApp</string>
+    <string name="buttonRechRec">Recettes</string>
+    <string name="buttonRechUser">Utilisateurs</string>
+    <string name="favorisTitleID">Favoris</string>
+    <string name="listeVide">Aucune recette correspondante</string>
+    <string name="parametreTitleID">Paramètres</string>
+    <string name="rechercheTitleID">Recherche</string>
+    <string name="rechercheUser">Recherche d\'utilisateur</string>
+    <string name="textRechRec">Recherche de recettes</string>
+    <string name="userTitleID">Connexion</string>
+    <string name="valider">Valider</string>
+    <string name="rechercheIndications">Ingrédients</string>
+    <string name="utilisateurs">Utilisateurs</string>
+    <string name="recettes">Recettes</string>
+    <string name="recette">Recette</string>
+</resources>

@@ -23,11 +23,11 @@
         <activity android:name=".LoginActivity" android:label="@string/userTitleID" android:parentActivityName="com.example.quentin.bonapp.MainActivity"></activity>
         <activity android:name=".FavoriteActivity" android:label="@string/favorisTitleID" android:parentActivityName="com.example.quentin.bonapp.MainActivity"></activity>
         <activity android:name=".OptionsActivity" android:label="@string/parametreTitleID" android:parentActivityName="com.example.quentin.bonapp.MainActivity"></activity>
-        <activity android:name=".searchRecipeActivity" android:label="Recherche recette" android:parentActivityName="com.example.quentin.bonapp.MainActivity"></activity>
-        <activity android:name=".searchUserActivity" android:label="Recherche user" android:parentActivityName="com.example.quentin.bonapp.MainActivity"></activity>
-        <activity android:name=".ListUserActivity" android:label="Users" android:parentActivityName="com.example.quentin.bonapp.MainActivity"></activity>
-        <activity android:name=".ListRecipeActivity" android:label="Recettes" android:parentActivityName="com.example.quentin.bonapp.MainActivity"></activity>
-        <activity android:name=".RecipeActivity" android:label="Recette" android:parentActivityName="com.example.quentin.bonapp.MainActivity"></activity>
+        <activity android:name=".searchRecipeActivity" android:label="@string/textRechRec" android:parentActivityName="com.example.quentin.bonapp.MainActivity"></activity>
+        <activity android:name=".searchUserActivity" android:label="@string/rechercheUser" android:parentActivityName="com.example.quentin.bonapp.MainActivity"></activity>
+        <activity android:name=".ListUserActivity" android:label="@string/utilisateurs" android:parentActivityName="com.example.quentin.bonapp.MainActivity"></activity>
+        <activity android:name=".ListRecipeActivity" android:label="@string/recettes" android:parentActivityName="com.example.quentin.bonapp.MainActivity"></activity>
+        <activity android:name=".RecipeActivity" android:label="@string/recette" android:parentActivityName="com.example.quentin.bonapp.MainActivity"></activity>
     </application>
 
 </manifest>
