@@ -29,19 +29,13 @@ public class RecipeActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.recipemenu, menu);
         return true;
     }
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()) {
-            case R.id.itemRechercheID:
-                startActivity(new Intent(RecipeActivity.this, SearchActivity.class));
-                return true;
             case R.id.itemFavorisID:
                 startActivity(new Intent(RecipeActivity.this, FavoriteActivity.class));
-                return true;
-            case R.id.itemParametresID:
-                startActivity(new Intent(RecipeActivity.this, OptionsActivity.class));
                 return true;
             case R.id.itemUserID:
                 startActivity(new Intent(RecipeActivity.this, LoginActivity.class));

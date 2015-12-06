@@ -73,7 +73,7 @@ public class searchRecipeActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
-                        Toast.makeText(searchRecipeActivity.this, "ERROR " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(searchRecipeActivity.this, searchRecipeActivity.this.getString(R.string.requesterror) + error.getMessage(), Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -159,14 +159,8 @@ public class searchRecipeActivity extends AppCompatActivity {
     }
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()) {
-            case R.id.itemRechercheID:
-                startActivity(new Intent(searchRecipeActivity.this, SearchActivity.class));
-                return true;
             case R.id.itemFavorisID:
                 startActivity(new Intent(searchRecipeActivity.this, FavoriteActivity.class));
-                return true;
-            case R.id.itemParametresID:
-                startActivity(new Intent(searchRecipeActivity.this, OptionsActivity.class));
                 return true;
             case R.id.itemUserID:
                 startActivity(new Intent(searchRecipeActivity.this, LoginActivity.class));

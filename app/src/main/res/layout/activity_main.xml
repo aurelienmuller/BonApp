@@ -13,8 +13,9 @@
         android:id="@+id/imageButtonSearch"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:background="@drawable/recette"
+        android:background="@drawable/searchbutton"
         android:layout_weight="1"
+        android:layout_marginBottom="5dp"
         />
 
     <ImageButton
@@ -23,7 +24,9 @@
         android:id="@+id/imageButtonFav"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:background="@drawable/favoritesimage"
+        android:background="@drawable/favoritebutton"
         android:layout_weight="1"
+        android:layout_marginTop="5dp"
         />
 </LinearLayout>
+

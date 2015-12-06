@@ -43,14 +43,8 @@ public class SearchActivity extends AppCompatActivity {
     }
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()) {
-            case R.id.itemRechercheID:
-                startActivity(new Intent(SearchActivity.this, SearchActivity.class));
-                return true;
             case R.id.itemFavorisID:
                 startActivity(new Intent(SearchActivity.this, FavoriteActivity.class));
-                return true;
-            case R.id.itemParametresID:
-                startActivity(new Intent(SearchActivity.this, OptionsActivity.class));
                 return true;
             case R.id.itemUserID:
                 startActivity(new Intent(SearchActivity.this, LoginActivity.class));

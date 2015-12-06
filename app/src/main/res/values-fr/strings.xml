@@ -3,7 +3,7 @@
     <string name="app_name">BonApp</string>
     <string name="buttonRechRec">Recettes</string>
     <string name="buttonRechUser">Utilisateurs</string>
-    <string name="favorisTitleID">Favoris</string>
+    <string name="favorisTitleID">Ajouter aux favoris</string>
     <string name="listeVide">Aucune recette correspondante</string>
     <string name="parametreTitleID">Paramètres</string>
     <string name="rechercheTitleID">Recherche</string>
@@ -15,4 +15,6 @@
     <string name="utilisateurs">Utilisateurs</string>
     <string name="recettes">Recettes</string>
     <string name="recette">Recette</string>
+    <string name="account">Compte</string>
+    <string name="requesterror">Erreur requête : </string>
 </resources>
