@@ -2,12 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.quentin.bonapp" >
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
-        android:allowBackup="true"
         android:name=".MyApplication"
+        android:allowBackup="true"
         android:icon="@mipmap/bonapp_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -19,15 +24,42 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SearchActivity" android:label="@string/rechercheTitleID" android:parentActivityName="com.example.quentin.bonapp.MainActivity"></activity>
-        <activity android:name=".LoginActivity" android:label="@string/userTitleID" android:parentActivityName="com.example.quentin.bonapp.MainActivity"></activity>
-        <activity android:name=".FavoriteActivity" android:label="@string/favorisTitleID" android:parentActivityName="com.example.quentin.bonapp.MainActivity"></activity>
-        <activity android:name=".OptionsActivity" android:label="@string/parametreTitleID" android:parentActivityName="com.example.quentin.bonapp.MainActivity"></activity>
-        <activity android:name=".searchRecipeActivity" android:label="@string/textRechRec" android:parentActivityName="com.example.quentin.bonapp.MainActivity"></activity>
-        <activity android:name=".searchUserActivity" android:label="@string/rechercheUser" android:parentActivityName="com.example.quentin.bonapp.MainActivity"></activity>
-        <activity android:name=".ListUserActivity" android:label="@string/utilisateurs" android:parentActivityName="com.example.quentin.bonapp.MainActivity"></activity>
-        <activity android:name=".ListRecipeActivity" android:label="@string/recettes" android:parentActivityName="com.example.quentin.bonapp.MainActivity"></activity>
-        <activity android:name=".RecipeActivity" android:label="@string/recette" android:parentActivityName="com.example.quentin.bonapp.MainActivity"></activity>
+        <activity
+            android:name=".SearchActivity"
+            android:label="@string/rechercheTitleID"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/userTitleID"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".FavoriteActivity"
+            android:label="@string/favorisTitleID"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".OptionsActivity"
+            android:label="@string/parametreTitleID"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".searchRecipeActivity"
+            android:label="@string/textRechRec"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".searchUserActivity"
+            android:label="@string/rechercheUser"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ListUserActivity"
+            android:label="@string/utilisateurs"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ListRecipeActivity"
+            android:label="@string/recettes"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".RecipeActivity"
+            android:label="@string/recette"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

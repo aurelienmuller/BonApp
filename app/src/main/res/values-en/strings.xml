@@ -17,4 +17,5 @@
     <string name="recette">Recipe</string>
     <string name="account">Account</string>
     <string name="requesterror">Request error : </string>
+    <string name="chargementFav">Loading favorites</string>
 </resources>
