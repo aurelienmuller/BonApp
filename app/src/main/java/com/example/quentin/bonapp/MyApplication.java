@@ -10,6 +10,8 @@ public class MyApplication extends Application {
 
     private static MyApplication mInstance;
 
+    private boolean isLoggedin;
+
     @Override
     public void onCreate(){
         super.onCreate();
@@ -22,5 +24,13 @@ public class MyApplication extends Application {
 
     public static Context getAppContext(){
         return mInstance.getApplicationContext();
+    }
+
+    public void setIsLoggedIn(boolean value) {
+        this.isLoggedin = value;
+    }
+
+    public boolean getIsLoggedIn() {
+        return this.isLoggedin;
     }
 }

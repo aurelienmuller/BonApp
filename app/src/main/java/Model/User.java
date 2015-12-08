@@ -18,6 +18,11 @@ public class User implements Serializable {
 
     }
 
+    public User(String username, String password, String mail) {
+        this.mail = mail;
+        this.username = username;
+        this.password = password;
+    }
     public User(int userid, String username, String password, String mail, ArrayList<Userfavorite> listFav) {
         this.listFav = new ArrayList<Userfavorite>();
         this.setUserid(userid);
