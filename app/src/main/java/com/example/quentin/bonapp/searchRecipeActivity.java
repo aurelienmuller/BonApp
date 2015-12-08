@@ -21,12 +21,15 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 import DataAccess.RequestQueueSingleton;
 import Model.Recipe;
@@ -116,8 +119,10 @@ public class searchRecipeActivity extends AppCompatActivity {
             if(response.has("recipes")) {
 
                 JSONArray arrayRecipes = response.getJSONArray("recipes");
+                Type listType = new TypeToken<List<Recipe>>(){}.getType();
+                ListRecipes =gson.fromJson(arrayRecipes.toString(), listType);
 
-                for(int i = 0; i < arrayRecipes.length(); i++) {
+                /*for(int i = 0; i < arrayRecipes.length(); i++) {
                     JSONObject currentRecipe = arrayRecipes.getJSONObject(i);
 
 
@@ -140,7 +145,7 @@ public class searchRecipeActivity extends AppCompatActivity {
 
                     Recipe recipe = new Recipe(publisher, f2f_url, title, source_url, recipe_id, image_url, social_rank, publisher_url);
                     ListRecipes.add(recipe);
-                }
+                }*/
 
                 if(!ListRecipes.isEmpty()) {
                     Intent i = new Intent(searchRecipeActivity.this, ListRecipeActivity.class);
