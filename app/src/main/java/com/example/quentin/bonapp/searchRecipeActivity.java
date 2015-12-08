@@ -20,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,11 +39,14 @@ public class searchRecipeActivity extends AppCompatActivity {
     private EditText searchEditText;
     private String searchText;
     private ArrayList<Recipe> ListRecipes;
+    private Gson gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_recipe_activity);
+
+        gson = new Gson();
 
         ListRecipes = new ArrayList<>();
 
@@ -115,6 +119,7 @@ public class searchRecipeActivity extends AppCompatActivity {
 
                 for(int i = 0; i < arrayRecipes.length(); i++) {
                     JSONObject currentRecipe = arrayRecipes.getJSONObject(i);
+
 
                     String publisher = currentRecipe.getString("publisher");
 
