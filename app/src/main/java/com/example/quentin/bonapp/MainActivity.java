@@ -1,5 +1,6 @@
 package com.example.quentin.bonapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,12 +16,16 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 import DataAccess.RequestQueueSingleton;
 import Model.Recipe;
@@ -30,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     //private RequestQueue requestQueue;
     private ArrayList<Recipe> listRecipes;
     private String user;
+    ProgressDialog progressDialog;
+    Gson gson;
 
 
     @Override
@@ -37,12 +44,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        gson = new Gson();
         listRecipes = new ArrayList<>();
 
         user = "1";
 
         final ImageButton searchButton = (ImageButton) findViewById(R.id.imageButtonSearch);
         final ImageButton favoriteButton = (ImageButton) findViewById(R.id.imageButtonFav);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Chargement des favoris...");
+        progressDialog.setMessage("Patience");
+        progressDialog.setCancelable(false);
+
 
 
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -56,13 +70,17 @@ public class MainActivity extends AppCompatActivity {
         favoriteButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                progressDialog.show();
+
                 RequestQueue requestQueue = RequestQueueSingleton.getInstance().getRequestQueue();
 
                 StringRequest request = new StringRequest(Request.Method.GET,"http://bonapp.azurewebsites.net/api/users/1", new Response.Listener<String>() {
 
                     @Override
                     public void onResponse(String response) {
+
                         parseJSONResponse(response);
+
 
                     }
                 }, new Response.ErrorListener() {
@@ -70,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
 
                         Toast.makeText(MainActivity.this, MainActivity.this.getString(R.string.requesterror) + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
 
                     }
 
@@ -100,13 +119,18 @@ public class MainActivity extends AppCompatActivity {
 
                 JSONArray arrayFavorites = responseJSON.getJSONArray("userfavorites");
 
+
+
                 for(int i = 0; i < arrayFavorites.length(); i++) {
 
                     JSONObject recipeFav = arrayFavorites.getJSONObject(i);
+
                     JSONObject currentRecipeFav = recipeFav.getJSONObject("recipe");
+                    Recipe recipe = gson.fromJson(currentRecipeFav.toString(), Recipe.class);
 
 
-                    String recipe_id = currentRecipeFav.getString("recipe_id");
+
+                    /*String recipe_id = currentRecipeFav.getString("recipe_id");
                     String image_url = currentRecipeFav.getString("image_url");
                     String source_url = currentRecipeFav.getString("source_url");
                     String f2f_url = currentRecipeFav.getString("f2f_url");
@@ -117,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
                     Recipe recipe = new Recipe(publisher, f2f_url, title, source_url, recipe_id, image_url, social_rank, publisher_url);
 
-                    listRecipes.add(recipe);
+                    */listRecipes.add(recipe);
 
 
                 }
@@ -125,6 +149,9 @@ public class MainActivity extends AppCompatActivity {
                 if(!listRecipes.isEmpty()) {
                     Intent i = new Intent(MainActivity.this, ListRecipeActivity.class);
                     i.putExtra("listRecipes", listRecipes);
+
+                    progressDialog.dismiss();
+
                     startActivity(i);
                     listRecipes.clear();
                 } else {

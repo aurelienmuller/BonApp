@@ -120,7 +120,7 @@ public class searchRecipeActivity extends AppCompatActivity {
 
                 JSONArray arrayRecipes = response.getJSONArray("recipes");
                 Type listType = new TypeToken<List<Recipe>>(){}.getType();
-                ListRecipes =gson.fromJson(arrayRecipes.toString(), listType);
+                ListRecipes = gson.fromJson(arrayRecipes.toString(), listType);
 
                 /*for(int i = 0; i < arrayRecipes.length(); i++) {
                     JSONObject currentRecipe = arrayRecipes.getJSONObject(i);
@@ -147,7 +147,7 @@ public class searchRecipeActivity extends AppCompatActivity {
                     ListRecipes.add(recipe);
                 }*/
 
-                if(!ListRecipes.isEmpty()) {
+                if (!ListRecipes.isEmpty()) {
                     Intent i = new Intent(searchRecipeActivity.this, ListRecipeActivity.class);
                     i.putExtra("listRecipes", ListRecipes);
                     startActivity(i);
