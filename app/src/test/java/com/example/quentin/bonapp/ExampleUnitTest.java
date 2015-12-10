@@ -1,4 +1,4 @@
-package com.example.quentin.bonapp;
+package com.bonapp.app.bonapp;
 
 import org.junit.Test;
 

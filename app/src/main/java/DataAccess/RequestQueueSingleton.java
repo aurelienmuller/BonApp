@@ -1,14 +1,8 @@
 package DataAccess;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.util.LruCache;
-
 import com.android.volley.RequestQueue;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
-import com.example.quentin.bonapp.MyApplication;
+import com.bonapp.app.MyApplication;
 
 /**
  * Created by aurelienmuller on 2/12/15.
