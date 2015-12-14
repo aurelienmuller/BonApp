@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.bonapp.app.bonapp.R;
 
@@ -20,12 +21,15 @@ import Model.Recipe;
 public class ListRecipeActivity extends AppCompatActivity {
 
     private ArrayList<Recipe> ListRecipes = new ArrayList<>();
+    String previousActivity;
     //private ListView recipeListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recipe_list);
+
+        previousActivity = getIntent().getStringExtra("parent");
 
         ListView recipeListView = (ListView) findViewById(R.id.recipeListView);
 
@@ -42,8 +46,16 @@ public class ListRecipeActivity extends AppCompatActivity {
         recipeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent recipeIntent = new Intent(ListRecipeActivity.this, RecipeActivity.class);
+                Intent recipeIntent;
+                if(previousActivity.equals("MainActivity")) {
+                    //Toast.makeText(ListRecipeActivity.this, previousActivity, Toast.LENGTH_LONG).show();
+                    recipeIntent = new Intent(ListRecipeActivity.this, FavoriteRecipeActivity.class);
+                } else {
+                    Toast.makeText(ListRecipeActivity.this, previousActivity, Toast.LENGTH_LONG).show();
+                    recipeIntent = new Intent(ListRecipeActivity.this, RecipeActivity.class);
+                }
                 recipeIntent.putExtra("recipe", ListRecipes.get(position));
+
                 startActivity(recipeIntent);
             }
         });

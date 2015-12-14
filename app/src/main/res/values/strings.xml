@@ -46,4 +46,6 @@
     <string name="facebook_app_id" translatable="false">887394014679392</string>
     <string name="title_activity_login_activity_fb">LoginActivityFB</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_favorite_recipe">FavoriteRecipeActivity</string>
+    <string name="suprfav">Retirer des favoris</string>
 </resources>

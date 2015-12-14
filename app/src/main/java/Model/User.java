@@ -10,25 +10,19 @@ public class User implements Serializable {
 
     private int userid;
     private String username;
-    private String password;
-    private String mail;
     private ArrayList<Userfavorite> listFav;
 
     public User() {
 
     }
 
-    public User(String username, String password, String mail) {
-        this.mail = mail;
+    public User(String username) {
         this.username = username;
-        this.password = password;
     }
-    public User(int userid, String username, String password, String mail, ArrayList<Userfavorite> listFav) {
+    public User(int userid, String username, ArrayList<Userfavorite> listFav) {
         this.listFav = new ArrayList<Userfavorite>();
         this.setUserid(userid);
         this.setUsername(username);
-        this.setPassword(password);
-        this.setMail(mail);
         this.setListFav(listFav);
     }
 
@@ -47,22 +41,6 @@ public class User implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
     }
 
     public ArrayList<Userfavorite> getListFav() {

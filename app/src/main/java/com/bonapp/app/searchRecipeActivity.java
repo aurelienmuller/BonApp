@@ -149,6 +149,7 @@ public class searchRecipeActivity extends AppCompatActivity {
                 if (!ListRecipes.isEmpty()) {
                     Intent i = new Intent(searchRecipeActivity.this, ListRecipeActivity.class);
                     i.putExtra("listRecipes", ListRecipes);
+                    i.putExtra("parent", "searchRecipeActivity");
                     startActivity(i);
                     ListRecipes.clear();
                 } else {

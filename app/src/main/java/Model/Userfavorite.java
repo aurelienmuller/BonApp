@@ -7,15 +7,25 @@ import java.io.Serializable;
  */
 public class Userfavorite implements Serializable{
 
+    private String userfavorite_id;
     private int userid_fav;
     private String recipeid_fav;
 
     public Userfavorite() {
 
     }
-    public Userfavorite(int userid_fav, String recipeid_fav) {
+    public Userfavorite(String userfavorite_id,  int userid_fav, String recipeid_fav) {
+        this.setUserfavorite_id(userfavorite_id);
         this.setUserid_fav(userid_fav);
         this.setRecipeid_fav(recipeid_fav);
+    }
+
+    public String getUserfavorite_id() {
+        return userfavorite_id;
+    }
+
+    public void setUserfavorite_id(String userfavorite_id) {
+        this.userfavorite_id = userfavorite_id;
     }
 
     public int getUserid_fav() {

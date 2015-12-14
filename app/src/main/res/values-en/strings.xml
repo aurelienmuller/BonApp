@@ -38,4 +38,5 @@
     <string name="logout">Log out</string>
     <string name="processing">Processing...</string>
     <string name="wait">Patience!</string>
+    <string name="suprfav">Remove from favorites</string>
 </resources>

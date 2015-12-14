@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/itemFavorisID"
+        android:icon="@drawable/favoris"
+        android:title="@string/suprfav"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/itemUserID"
+        android:icon="@drawable/user"
+        android:title="@string/account"
+        app:showAsAction="never"/>
+</menu>

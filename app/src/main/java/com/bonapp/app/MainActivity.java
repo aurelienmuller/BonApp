@@ -3,9 +3,14 @@ package com.bonapp.app;
 import android.app.ProgressDialog;
 import android.content.Intent;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +30,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import DataAccess.RequestQueueSingleton;
@@ -40,11 +47,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
+
+
         setContentView(R.layout.activity_main);
 
 
 
+
+        Toast.makeText(MainActivity.this, "Hello"+Integer.toString(666), Toast.LENGTH_LONG).show();
 
 
 
@@ -78,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
                 RequestQueue requestQueue = RequestQueueSingleton.getInstance().getRequestQueue();
 
-                StringRequest request = new StringRequest(Request.Method.GET,"http://bonapp.azurewebsites.net/api/users/1", new Response.Listener<String>() {
+                StringRequest request = new StringRequest(Request.Method.GET,"http://bonappwebapi.azurewebsites.net/api/users/1", new Response.Listener<String>() {
 
                     @Override
                     public void onResponse(String response) {
@@ -153,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
                 if(!listRecipes.isEmpty()) {
                     Intent i = new Intent(MainActivity.this, ListRecipeActivity.class);
                     i.putExtra("listRecipes", listRecipes);
+                    i.putExtra("parent", "MainActivity");
 
                     progressDialog.dismiss();
 

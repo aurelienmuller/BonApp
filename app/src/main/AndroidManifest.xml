@@ -62,6 +62,14 @@
             android:label="@string/title_activity_login_activity_fb"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity
+            android:name="com.bonapp.app.FavoriteRecipeActivity"
+            android:label="@string/title_activity_favorite_recipe"
+            android:parentActivityName="com.bonapp.app.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.bonapp.app.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
