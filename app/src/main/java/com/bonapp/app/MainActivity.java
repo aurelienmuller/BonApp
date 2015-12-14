@@ -1,11 +1,14 @@
 package com.bonapp.app;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -41,8 +44,10 @@ public class MainActivity extends AppCompatActivity {
     //private RequestQueue requestQueue;
     private ArrayList<Recipe> listRecipes;
     private String user;
+    private String userid;
     ProgressDialog progressDialog;
     Gson gson;
+    SharedPreferences sharedPreferences;
 
 
     @Override
@@ -50,21 +55,25 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-
+        sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        userid = sharedPreferences.getString("id", "");
 
         setContentView(R.layout.activity_main);
 
+        if(userid.equals(null)) {
+            startActivity(new Intent(MainActivity.this, LoginActivityFB.class));
+        }
 
 
 
-        Toast.makeText(MainActivity.this, "Hello"+Integer.toString(666), Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, /*MyApplication.fbUserId*/sharedPreferences.getString("id", ""), Toast.LENGTH_LONG).show();
 
 
 
         gson = new Gson();
         listRecipes = new ArrayList<>();
 
-        user = "1";
+        //user = "1";
 
         final ImageButton searchButton = (ImageButton) findViewById(R.id.imageButtonSearch);
         final ImageButton favoriteButton = (ImageButton) findViewById(R.id.imageButtonFav);
@@ -89,9 +98,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 progressDialog.show();
 
+                sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+                String userIdString = sharedPreferences.getString("id", "");
+                //int userIdInt = Integer.parseInt(userIdString);
+
                 RequestQueue requestQueue = RequestQueueSingleton.getInstance().getRequestQueue();
 
-                StringRequest request = new StringRequest(Request.Method.GET,"http://bonappwebapi.azurewebsites.net/api/users/1", new Response.Listener<String>() {
+                StringRequest request = new StringRequest(Request.Method.GET,"http://bonapp2.azurewebsites.net/api/users/" + userIdString, new Response.Listener<String>() {
 
                     @Override
                     public void onResponse(String response) {
@@ -173,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(i);
                     listRecipes.clear();
                 } else {
+                    progressDialog.dismiss();
                     Toast.makeText(MainActivity.this, this.getString(R.string.listeVide), Toast.LENGTH_LONG).show();
                 }
 

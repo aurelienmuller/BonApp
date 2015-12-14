@@ -1,6 +1,8 @@
 package com.bonapp.app;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -36,6 +38,8 @@ public class RecipeActivity extends AppCompatActivity {
     String recipeJson;
     String userFavJson;
     Recipe recipeToFavorite;
+    SharedPreferences sharedPreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -74,8 +78,11 @@ public class RecipeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()) {
             case R.id.itemFavorisID:
+                sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+                String userIdString = sharedPreferences.getString("id", "");
+                int userIdInt = Integer.parseInt(userIdString);
                 recipeToFavorite = (Recipe) (this.getIntent().getSerializableExtra(("recipe")));
-                Userfavorite newUserFav = new Userfavorite(recipeToFavorite.getRecipe_id()+Integer.toString(666), 1, recipeToFavorite.getRecipe_id());
+                Userfavorite newUserFav = new Userfavorite(recipeToFavorite.getRecipe_id() + userIdString, userIdInt, recipeToFavorite.getRecipe_id());
                 Gson gson = new Gson();
                 recipeJson = gson.toJson(recipeToFavorite);
                 userFavJson = gson.toJson(newUserFav);

@@ -1,6 +1,8 @@
 package com.bonapp.app;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -40,6 +42,7 @@ public class FavoriteRecipeActivity extends AppCompatActivity {
     String recipeJson;
     String userFavJson;
     Recipe recipeToFavorite;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -79,6 +82,8 @@ public class FavoriteRecipeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()) {
             case R.id.itemFavorisID:
+                sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+                String userIdString = sharedPreferences.getString("id", "");
                 recipeToFavorite = (Recipe) (this.getIntent().getSerializableExtra(("recipe")));
                 Userfavorite newUserFav = new Userfavorite(recipeToFavorite.getRecipe_id() + Integer.toString(666), 1, recipeToFavorite.getRecipe_id());
                 Gson gson = new Gson();
@@ -87,7 +92,7 @@ public class FavoriteRecipeActivity extends AppCompatActivity {
 
 
 
-                StringRequest requestRecipe = new StringRequest(Request.Method.DELETE, "http://bonapp2.azurewebsites.net/api/recipes/" + recipeToFavorite.getRecipe_id(), new Response.Listener<String>() {
+                /*StringRequest requestRecipe = new StringRequest(Request.Method.DELETE, "http://bonapp2.azurewebsites.net/api/recipes/" + recipeToFavorite.getRecipe_id(), new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Toast.makeText(FavoriteRecipeActivity.this, "Recette supprimée aux favoris", Toast.LENGTH_LONG).show();
@@ -103,7 +108,29 @@ public class FavoriteRecipeActivity extends AppCompatActivity {
                         20000,
                         DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-                requestQueue.add(requestRecipe);
+                requestQueue.add(requestRecipe);*/
+
+                StringRequest requestUserFav = new StringRequest(Request.Method.DELETE, "http://bonapp2.azurewebsites.net/api/userfavorites/" + recipeToFavorite.getRecipe_id() + userIdString, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //Toast.makeText(FavoriteRecipeActivity.this, "Recette suppimée des favoris", Toast.LENGTH_LONG).show();
+                        deleteUserFavorite();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(FavoriteRecipeActivity.this, "Userfavorites : " + error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                requestUserFav.setRetryPolicy(new DefaultRetryPolicy(
+                        20000,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                requestQueue.add(requestUserFav);
+
+
+
+
 
                 /*JsonObjectRequest requestUserFav = new JsonObjectRequest(Request.Method.POST, "http://bonapp.azurewebsites.net/api/userfavorites/", userFavJson, new Response.Listener<JSONObject>() {
                     @Override
@@ -133,8 +160,8 @@ public class FavoriteRecipeActivity extends AppCompatActivity {
         }
     }
 
-    public void addToUserFavorites() {
-        JsonObjectRequest requestUserFav = new JsonObjectRequest(Request.Method.DELETE, "http://bonapp2.azurewebsites.net/api/userfavorites/" + recipeToFavorite.getRecipe_id() + Integer.toString(666), new Response.Listener<JSONObject>() {
+    public void deleteUserFavorite() {
+        /*JsonObjectRequest requestUserFav = new JsonObjectRequest(Request.Method.DELETE, "http://bonapp2.azurewebsites.net/api/userfavorites/" + recipeToFavorite.getRecipe_id() + Integer.toString(666), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Toast.makeText(FavoriteRecipeActivity.this, "Recette suppimée des favoris", Toast.LENGTH_LONG).show();
@@ -149,6 +176,25 @@ public class FavoriteRecipeActivity extends AppCompatActivity {
                 20000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        requestQueue.add(requestUserFav);
+        requestQueue.add(requestUserFav);*/
+
+        StringRequest requestRecipe = new StringRequest(Request.Method.DELETE, "http://bonapp2.azurewebsites.net/api/recipes/" + recipeToFavorite.getRecipe_id(), new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(FavoriteRecipeActivity.this, "Recette supprimée des favoris", Toast.LENGTH_LONG).show();
+                        //addToUserFavorites();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(FavoriteRecipeActivity.this, "Recipes : " + error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                requestRecipe.setRetryPolicy(new DefaultRetryPolicy(
+                        20000,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                requestQueue.add(requestRecipe);
     }
+
 }

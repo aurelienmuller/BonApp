@@ -2,6 +2,7 @@ package com.bonapp.app;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -16,6 +17,9 @@ import java.security.NoSuchAlgorithmException;
  */
 public class MyApplication extends Application {
 
+    SharedPreferences sharedPreferences;
+    public static String fbUserId;
+
     private static MyApplication mInstance;
 
     private boolean isLoggedin;
@@ -23,6 +27,8 @@ public class MyApplication extends Application {
     @Override
     public void onCreate(){
         super.onCreate();
+        sharedPreferences = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+
 
         try { PackageInfo info = getPackageManager().getPackageInfo( this.getPackageName(), PackageManager.GET_SIGNATURES); for (Signature signature : info.signatures) { MessageDigest md = MessageDigest.getInstance("SHA"); md.update(signature.toByteArray()); Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT)); } } catch (PackageManager.NameNotFoundException e) {e.printStackTrace(); } catch (NoSuchAlgorithmException e) {e.printStackTrace(); }
 
@@ -43,5 +49,9 @@ public class MyApplication extends Application {
 
     public boolean getIsLoggedIn() {
         return this.isLoggedin;
+    }
+
+    public static void setUserId(String id) {
+        fbUserId = id;
     }
 }
