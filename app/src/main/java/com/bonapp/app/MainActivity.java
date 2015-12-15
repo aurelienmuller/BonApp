@@ -1,19 +1,14 @@
 package com.bonapp.app;
 
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import android.util.Base64;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,14 +22,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.bonapp.app.bonapp.R;
+import com.facebook.AccessToken;
+import com.facebook.FacebookSdk;
+import com.facebook.Profile;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import DataAccess.RequestQueueSingleton;
@@ -48,26 +44,21 @@ public class MainActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     Gson gson;
     SharedPreferences sharedPreferences;
+    Profile profile;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        FacebookSdk.sdkInitialize(this.getApplicationContext());
         super.onCreate(savedInstanceState);
 
         sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
         userid = sharedPreferences.getString("id", "");
 
+
         setContentView(R.layout.activity_main);
 
-        if(userid.equals(null)) {
-            startActivity(new Intent(MainActivity.this, LoginActivityFB.class));
-        }
-
-
-
-        Toast.makeText(MainActivity.this, /*MyApplication.fbUserId*/sharedPreferences.getString("id", ""), Toast.LENGTH_LONG).show();
-
+        profile = Profile.getCurrentProfile();
 
 
         gson = new Gson();
@@ -88,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent searchRecipeIntent = new Intent(MainActivity.this, SearchActivity.class);
+                Intent searchRecipeIntent = new Intent(MainActivity.this, SearchRecipeActivity.class);
                 MainActivity.this.startActivity(searchRecipeIntent);
             }
         });
@@ -99,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 progressDialog.show();
 
                 sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
-                String userIdString = sharedPreferences.getString("id", "");
+                String userIdString = profile.getId().substring(profile.getId().length()/2, profile.getId().length());//sharedPreferences.getString("id", "");
                 //int userIdInt = Integer.parseInt(userIdString);
 
                 RequestQueue requestQueue = RequestQueueSingleton.getInstance().getRequestQueue();
@@ -131,6 +122,10 @@ public class MainActivity extends AppCompatActivity {
                 requestQueue.add(request);
             }
         });
+
+    }
+
+    private void getFavorites() {
 
     }
 
@@ -214,10 +209,21 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected  void onStart() {
+        FacebookSdk.sdkInitialize(this.getApplicationContext());
         super.onStart();
+        if(AccessToken.getCurrentAccessToken() == null) {
+            Toast.makeText(getApplicationContext(), "if " + MyApplication.getFbUserId(), Toast.LENGTH_LONG).show();
 
+            startActivity(new Intent(MainActivity.this, LoginActivityFB.class));
+            profile = Profile.getCurrentProfile();
+
+            //MyApplication.setFbUserId(profile.getId().substring(profile.getId().length() / 2, profile.getId().length()));
+        } else {
+            profile = Profile.getCurrentProfile();
+            MyApplication.setFbUserId(profile.getId().substring(profile.getId().length() / 2, profile.getId().length()));
+            Toast.makeText(getApplicationContext(), "else " + MyApplication.getFbUserId(), Toast.LENGTH_LONG).show();
+        }
     }
-
 
 
 }

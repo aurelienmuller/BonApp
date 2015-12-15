@@ -29,20 +29,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.bonapp.app.SearchActivity"
-            android:label="@string/rechercheTitleID"
-            android:parentActivityName="com.bonapp.app.MainActivity" />
-        <activity
-            android:name="com.bonapp.app.searchRecipeActivity"
+            android:name="com.bonapp.app.SearchRecipeActivity"
             android:label="@string/textRechRec"
-            android:parentActivityName="com.bonapp.app.MainActivity" />
-        <activity
-            android:name="com.bonapp.app.searchUserActivity"
-            android:label="@string/rechercheUser"
-            android:parentActivityName="com.bonapp.app.MainActivity" />
-        <activity
-            android:name="com.bonapp.app.ListUserActivity"
-            android:label="@string/utilisateurs"
             android:parentActivityName="com.bonapp.app.MainActivity" />
         <activity
             android:name="com.bonapp.app.ListRecipeActivity"

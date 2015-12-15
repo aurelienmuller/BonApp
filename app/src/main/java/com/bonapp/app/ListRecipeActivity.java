@@ -51,7 +51,6 @@ public class ListRecipeActivity extends AppCompatActivity {
                     //Toast.makeText(ListRecipeActivity.this, previousActivity, Toast.LENGTH_LONG).show();
                     recipeIntent = new Intent(ListRecipeActivity.this, FavoriteRecipeActivity.class);
                 } else {
-                    Toast.makeText(ListRecipeActivity.this, previousActivity, Toast.LENGTH_LONG).show();
                     recipeIntent = new Intent(ListRecipeActivity.this, RecipeActivity.class);
                 }
                 recipeIntent.putExtra("recipe", ListRecipes.get(position));

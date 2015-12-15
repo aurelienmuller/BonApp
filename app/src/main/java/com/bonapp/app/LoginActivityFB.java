@@ -1,5 +1,7 @@
 package com.bonapp.app;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +13,8 @@ import com.bonapp.app.bonapp.R;
 
 public class LoginActivityFB extends AppCompatActivity {
 
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,7 +22,23 @@ public class LoginActivityFB extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
 
     }
+
+    @Override
+    public void onBackPressed() {
+    }
+
+    /* @Override
+    public void onStop() {
+         super.onStop();
+         editor.putString("id", "");
+         editor.putString("username", "");
+         editor.commit();
+
+     }*/
 
 }

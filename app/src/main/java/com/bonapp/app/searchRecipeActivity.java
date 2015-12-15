@@ -36,7 +36,7 @@ import Model.Recipe;
 /**
  * Created by etu25714 on 20/10/2015.
  */
-public class searchRecipeActivity extends AppCompatActivity {
+public class SearchRecipeActivity extends AppCompatActivity {
     private Button validateButton;
     private EditText searchEditText;
     private String searchText;
@@ -79,7 +79,7 @@ public class searchRecipeActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
-                        Toast.makeText(searchRecipeActivity.this, searchRecipeActivity.this.getString(R.string.requesterror) + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SearchRecipeActivity.this, SearchRecipeActivity.this.getString(R.string.requesterror) + error.getMessage(), Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -147,13 +147,13 @@ public class searchRecipeActivity extends AppCompatActivity {
                 }*/
 
                 if (!ListRecipes.isEmpty()) {
-                    Intent i = new Intent(searchRecipeActivity.this, ListRecipeActivity.class);
+                    Intent i = new Intent(SearchRecipeActivity.this, ListRecipeActivity.class);
                     i.putExtra("listRecipes", ListRecipes);
-                    i.putExtra("parent", "searchRecipeActivity");
+                    i.putExtra("parent", "SearchRecipeActivity");
                     startActivity(i);
                     ListRecipes.clear();
                 } else {
-                    Toast.makeText(searchRecipeActivity.this, this.getString(R.string.listeVide), Toast.LENGTH_LONG).show();
+                    Toast.makeText(SearchRecipeActivity.this, this.getString(R.string.listeVide), Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -170,7 +170,7 @@ public class searchRecipeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()) {
             case R.id.itemUserID:
-                startActivity(new Intent(searchRecipeActivity.this, LoginActivityFB.class));
+                startActivity(new Intent(SearchRecipeActivity.this, LoginActivityFB.class));
                 return true;
             default: return super.onOptionsItemSelected(item);
         }

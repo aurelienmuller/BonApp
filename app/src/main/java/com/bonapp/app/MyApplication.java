@@ -9,6 +9,9 @@ import android.content.pm.Signature;
 import android.util.Base64;
 import android.util.Log;
 
+import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -18,7 +21,9 @@ import java.security.NoSuchAlgorithmException;
 public class MyApplication extends Application {
 
     SharedPreferences sharedPreferences;
-    public static String fbUserId;
+    private static String fbUserId;
+    Profile profile;
+
 
     private static MyApplication mInstance;
 
@@ -27,6 +32,10 @@ public class MyApplication extends Application {
     @Override
     public void onCreate(){
         super.onCreate();
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        //profile = Profile.getCurrentProfile();
+        //fbUserId = profile.getId().substring(profile.getId().length()/ 2, profile.getId().length());
         sharedPreferences = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
 
 
@@ -51,7 +60,9 @@ public class MyApplication extends Application {
         return this.isLoggedin;
     }
 
-    public static void setUserId(String id) {
+    public static void setFbUserId(String id) {
         fbUserId = id;
     }
+
+    public static String getFbUserId() { return fbUserId; }
 }
