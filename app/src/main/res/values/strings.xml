@@ -12,7 +12,7 @@
     <string name="rechercheUser">Recherche d\'utilisateur</string>
     <string name="valider">Valider</string>
     <string name="listeVide">Aucune recette correspondante</string>
-    <string name="rechercheIndications">Ingrédients</string>
+    <string name="rechercheIndications">Ingrédients souhaités, titre, ...</string>
     <string name="utilisateurs">Utilisateurs</string>
     <string name="recettes">Recettes</string>
     <string name="recette">Recette</string>

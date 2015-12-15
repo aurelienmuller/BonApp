@@ -212,8 +212,6 @@ public class MainActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         super.onStart();
         if(AccessToken.getCurrentAccessToken() == null) {
-            Toast.makeText(getApplicationContext(), "if " + MyApplication.getFbUserId(), Toast.LENGTH_LONG).show();
-
             startActivity(new Intent(MainActivity.this, LoginActivityFB.class));
             profile = Profile.getCurrentProfile();
 
@@ -221,7 +219,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             profile = Profile.getCurrentProfile();
             MyApplication.setFbUserId(profile.getId().substring(profile.getId().length() / 2, profile.getId().length()));
-            Toast.makeText(getApplicationContext(), "else " + MyApplication.getFbUserId(), Toast.LENGTH_LONG).show();
         }
     }
 

@@ -11,7 +11,7 @@
     <string name="textRechRec">Recherche de recettes</string>
     <string name="userTitleID">Connexion</string>
     <string name="valider">Valider</string>
-    <string name="rechercheIndications">Ingrédients</string>
+    <string name="rechercheIndications">Ingrédients souhaités, titre...</string>
     <string name="utilisateurs">Utilisateurs</string>
     <string name="recettes">Recettes</string>
     <string name="recette">Recette</string>
