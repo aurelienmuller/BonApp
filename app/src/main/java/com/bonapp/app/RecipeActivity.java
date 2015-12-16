@@ -1,9 +1,12 @@
 package com.bonapp.app;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.DialogPreference;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,17 +17,11 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.NetworkError;
 import com.android.volley.NetworkResponse;
-import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.ServerError;
-import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
@@ -34,21 +31,22 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
-import DataAccess.RequestQueueSingleton;
-import Model.Recipe;
-import Model.Userfavorite;
+import com.bonapp.app.DataAccess.RequestQueueSingleton;
+import com.bonapp.app.Model.Recipe;
+import com.bonapp.app.Model.Userfavorite;
 
 
 public class RecipeActivity extends AppCompatActivity {
 
     private WebView webView;
     private ProgressBar progressBar;
-    RequestQueue requestQueue = RequestQueueSingleton.getInstance().getRequestQueue();
     String recipeJson;
     String userFavJson;
     Recipe recipeToFavorite;
-    SharedPreferences sharedPreferences;
     Profile profile;
+    private AlertDialog.Builder alertDialogBuilder;
+    private AlertDialog alertDialog;
+    private RequestQueue requestQueue;
 
 
     @Override
@@ -80,6 +78,8 @@ public class RecipeActivity extends AppCompatActivity {
 
         webView.loadUrl(recipe.getSource_url());
 
+        createDialog();
+
     }
 
     @Override
@@ -90,17 +90,8 @@ public class RecipeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()) {
             case R.id.itemFavorisID:
-                sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
-                String userIdString = MyApplication.getFbUserId();
-                int userIdInt = Integer.parseInt(userIdString);
-                recipeToFavorite = (Recipe) (this.getIntent().getSerializableExtra(("recipe")));
-                Userfavorite newUserFav = new Userfavorite(recipeToFavorite.getRecipe_id() + userIdString, userIdInt, recipeToFavorite.getRecipe_id());
-                Gson gson = new Gson();
-                recipeJson = gson.toJson(recipeToFavorite);
-                userFavJson = gson.toJson(newUserFav);
 
-                addToRecipes();
-
+                alertDialog.show();
 
                 return true;
             case R.id.itemUserID:
@@ -111,10 +102,19 @@ public class RecipeActivity extends AppCompatActivity {
     }
 
     public void addToRecipes() {
-        JsonObjectRequest requestRecipe = new JsonObjectRequest(Request.Method.POST, "http://bonapp2.azurewebsites.net/api/recipes/", recipeJson, new Response.Listener<JSONObject>() {
+        String userIdString = MyApplication.getFbUserId();
+        int userIdInt = Integer.parseInt(userIdString);
+        recipeToFavorite = (Recipe) (this.getIntent().getSerializableExtra(("recipe")));
+        Userfavorite newUserFav = new Userfavorite(recipeToFavorite.getRecipe_id() + userIdString, userIdInt, recipeToFavorite.getRecipe_id());
+        Gson gson = new Gson();
+        recipeJson = gson.toJson(recipeToFavorite);
+        userFavJson = gson.toJson(newUserFav);
+
+        requestQueue = RequestQueueSingleton.getInstance().getRequestQueue();
+
+        JsonObjectRequest requestRecipe = new JsonObjectRequest(Request.Method.POST, MyApplication.getBonAppRecipesUrl(), recipeJson, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                //Toast.makeText(RecipeActivity.this, "Recette ajoutée aux favoris", Toast.LENGTH_LONG).show();
                 addToUserFavorites();
             }
         }, new Response.ErrorListener() {
@@ -123,16 +123,17 @@ public class RecipeActivity extends AppCompatActivity {
                 NetworkResponse response = error.networkResponse;
                 if(response != null && response.data != null){
                     switch(response.statusCode){
-                        case 400:
-                            Toast.makeText(RecipeActivity.this, response.data.toString(), Toast.LENGTH_LONG).show();
-                            break;
                         case 409:
-                            Toast.makeText(RecipeActivity.this, "Recette déjà dans les favoris", Toast.LENGTH_LONG).show();
+                            Toast.makeText(RecipeActivity.this, R.string.recetteexiste, Toast.LENGTH_LONG).show();
+                            break;
+                        case 500:
+                            Toast.makeText(RecipeActivity.this, R.string.erreurserveur, Toast.LENGTH_LONG).show();
+                            break;
+                        default:
+                            Toast.makeText(RecipeActivity.this, R.string.problemesurvenu, Toast.LENGTH_LONG).show();
                             break;
                     }
-                    //Additional cases
                 }
-                //Toast.makeText(RecipeActivity.this, "Recipes : " + error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
         requestRecipe.setRetryPolicy(new DefaultRetryPolicy(
@@ -142,11 +143,30 @@ public class RecipeActivity extends AppCompatActivity {
         requestQueue.add(requestRecipe);
     }
 
+    public void createDialog() {
+        alertDialogBuilder = new AlertDialog.Builder(RecipeActivity.this);
+        alertDialogBuilder.setTitle(R.string.favoris)
+                .setMessage(R.string.ajouterfav)
+                .setCancelable(true)
+                .setPositiveButton(R.string.oui, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        addToRecipes();
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton(R.string.non, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        alertDialog = alertDialogBuilder.create();
+    }
+
     public void addToUserFavorites() {
-        JsonObjectRequest requestUserFav = new JsonObjectRequest(Request.Method.POST, "http://bonapp2.azurewebsites.net/api/userfavorites/", userFavJson, new Response.Listener<JSONObject>() {
+        JsonObjectRequest requestUserFav = new JsonObjectRequest(Request.Method.POST, MyApplication.getBonAppUserfavoritesUrl(), userFavJson, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Toast.makeText(RecipeActivity.this, "Recette ajoutée aux favoris", Toast.LENGTH_LONG).show();
+                Toast.makeText(RecipeActivity.this, R.string.recetteajoutee, Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -163,10 +183,10 @@ public class RecipeActivity extends AppCompatActivity {
     }
 
     public void deleteFromRecipes() {
-        StringRequest requestRecipe = new StringRequest(Request.Method.DELETE, "http://bonapp2.azurewebsites.net/api/recipes/" + recipeToFavorite.getRecipe_id(), new Response.Listener<String>() {
+        StringRequest requestRecipe = new StringRequest(Request.Method.DELETE, MyApplication.getBonAppRecipesUrl() + recipeToFavorite.getRecipe_id(), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(RecipeActivity.this, "Recette supprimée des favoris", Toast.LENGTH_LONG).show();
+                Toast.makeText(RecipeActivity.this, R.string.recettesupprimee, Toast.LENGTH_LONG).show();
                 //addToUserFavorites();
             }
         }, new Response.ErrorListener() {

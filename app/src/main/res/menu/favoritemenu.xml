@@ -4,13 +4,13 @@
 
     <item
         android:id="@+id/itemFavorisID"
-        android:icon="@drawable/favoris"
+        android:icon="@drawable/ic_favorite_border_black_48dp"
         android:title="@string/suprfav"
-        app:showAsAction="never"/>
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/itemUserID"
-        android:icon="@drawable/user"
+        android:icon="@drawable/ic_face_black_48dp"
         android:title="@string/account"
-        app:showAsAction="never"/>
+        app:showAsAction="ifRoom"/>
 </menu>

@@ -1,4 +1,4 @@
-package Model;
+package com.bonapp.app.Model;
 
 import java.io.Serializable;
 import java.util.ArrayList;

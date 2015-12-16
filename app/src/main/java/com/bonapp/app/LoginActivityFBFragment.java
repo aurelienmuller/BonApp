@@ -54,15 +54,7 @@ public class LoginActivityFBFragment extends Fragment {
                 mProfileTracker = new ProfileTracker() {
                     @Override
                     protected void onCurrentProfileChanged(Profile profile, Profile profile2) {
-                        //Log.v("facebook - profile1111", profile2.getName());
-                        //editor.putString("id", profile2.getId().substring(profile2.getId().length()/2, profile2.getId().length()));
-                        //editor.putString("username", profile2.getName());
-                        //editor.commit();
-                        //sharedPreferences.edit().putString("id", profile2.getId());
-                        //sharedPreferences.edit().commit();
-                        //MyApplication.setUserId(profile2.getId());
-                        //Toast.makeText(getActivity(), /*MyApplication.fbUserId*/ sharedPreferences.getString("id", "") +  sharedPreferences.getString("username", ""), Toast.LENGTH_LONG).show();
-                        Log.v("onCurrentProfileChanged", "hello");
+
                         mProfileTracker.stopTracking();
                         Profile.setCurrentProfile(profile2);
 
@@ -74,25 +66,6 @@ public class LoginActivityFBFragment extends Fragment {
                 };
                 mProfileTracker.startTracking();
 
-            /*} else {
-                Profile profile = Profile.getCurrentProfile();
-                Log.v("facebook - profile22222", profile.getName());
-                editor.putString("id", profile.getId().substring(profile.getId().length()/2, profile.getId().length()));
-                editor.putString("username", profile.getName());
-
-                editor.commit();
-                //sharedPreferences.edit().putString("id", profile.getId());
-                //sharedPreferences.edit().commit();
-                //MyApplication.setUserId(profile.getId());
-                Toast.makeText(getActivity(), /*MyApplication.fbUserId sharedPreferences.getString("id", ""), Toast.LENGTH_LONG).show();
-            //}
-            /*Profile profile = Profile.getCurrentProfile();
-
-            MyApplication.setUserId(profile.getId());
-
-            displayWelcomeMessage(profile);*/
-
-            //getActivity().finish();
         }
 
         @Override
@@ -109,8 +82,8 @@ public class LoginActivityFBFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Profile profile = Profile.getCurrentProfile();
-        displayWelcomeMessage(profile);
+        //Profile profile = Profile.getCurrentProfile();
+        //displayWelcomeMessage(profile);
     }
 
     public void displayWelcomeMessage(Profile profile) {

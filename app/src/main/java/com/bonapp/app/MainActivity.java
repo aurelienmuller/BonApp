@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,8 +34,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import DataAccess.RequestQueueSingleton;
-import Model.Recipe;
+import com.bonapp.app.DataAccess.RequestQueueSingleton;
+import com.bonapp.app.Model.Recipe;
 
 public class MainActivity extends AppCompatActivity {
     //private RequestQueue requestQueue;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     Gson gson;
     SharedPreferences sharedPreferences;
     Profile profile;
+    private RequestQueue requestQueue;
 
 
     @Override
@@ -64,14 +66,12 @@ public class MainActivity extends AppCompatActivity {
         gson = new Gson();
         listRecipes = new ArrayList<>();
 
-        //user = "1";
-
         final ImageButton searchButton = (ImageButton) findViewById(R.id.imageButtonSearch);
         final ImageButton favoriteButton = (ImageButton) findViewById(R.id.imageButtonFav);
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Chargement des favoris...");
-        progressDialog.setMessage("Patience");
+        progressDialog.setTitle(R.string.chargement);
+        progressDialog.setMessage(getApplicationContext().getResources().getString(R.string.chargementmsg));
         progressDialog.setCancelable(false);
 
 
@@ -87,88 +87,65 @@ public class MainActivity extends AppCompatActivity {
         favoriteButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                progressDialog.show();
-
-                sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
-                String userIdString = profile.getId().substring(profile.getId().length()/2, profile.getId().length());//sharedPreferences.getString("id", "");
-                //int userIdInt = Integer.parseInt(userIdString);
-
-                RequestQueue requestQueue = RequestQueueSingleton.getInstance().getRequestQueue();
-
-                StringRequest request = new StringRequest(Request.Method.GET,"http://bonapp2.azurewebsites.net/api/users/" + userIdString, new Response.Listener<String>() {
-
-                    @Override
-                    public void onResponse(String response) {
-
-                        parseJSONResponse(response);
-
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                        Toast.makeText(MainActivity.this, MainActivity.this.getString(R.string.requesterror) + error.getMessage(), Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
-
-                    }
-
-                });
-
-                request.setRetryPolicy(new DefaultRetryPolicy(
-                        10000,
-                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-                requestQueue.add(request);
+                getFavorites();
             }
         });
 
     }
 
     private void getFavorites() {
+        progressDialog.show();
 
+        String userIdString = profile.getId().substring(profile.getId().length()/2, profile.getId().length());
+
+        requestQueue = RequestQueueSingleton.getInstance().getRequestQueue();
+
+        StringRequest request = new StringRequest(Request.Method.GET, MyApplication.getBonAppUsersUrl() + userIdString, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+
+                parseJSONResponse(response);
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(MainActivity.this, MainActivity.this.getString(R.string.requesterror) + error.getMessage(), Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+
+            }
+
+        });
+
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        requestQueue.add(request);
     }
 
     private void parseJSONResponse(String response) {
 
         if(response == null || response.length() == 0) {
-
             return;
         }
 
         try {
-
             JSONObject responseJSON = new JSONObject(response);
 
             if (responseJSON.has("userfavorites")) {
-
                 JSONArray arrayFavorites = responseJSON.getJSONArray("userfavorites");
 
-
-
                 for(int i = 0; i < arrayFavorites.length(); i++) {
-
                     JSONObject recipeFav = arrayFavorites.getJSONObject(i);
-
                     JSONObject currentRecipeFav = recipeFav.getJSONObject("recipe");
+
                     Recipe recipe = gson.fromJson(currentRecipeFav.toString(), Recipe.class);
 
-
-
-                    /*String recipe_id = currentRecipeFav.getString("recipe_id");
-                    String image_url = currentRecipeFav.getString("image_url");
-                    String source_url = currentRecipeFav.getString("source_url");
-                    String f2f_url = currentRecipeFav.getString("f2f_url");
-                    String title = currentRecipeFav.getString("title");
-                    String publisher = currentRecipeFav.getString("publisher");
-                    String publisher_url = currentRecipeFav.getString("publisher_url");
-                    Double social_rank = currentRecipeFav.getDouble("social_rank");
-
-                    Recipe recipe = new Recipe(publisher, f2f_url, title, source_url, recipe_id, image_url, social_rank, publisher_url);
-
-                    */listRecipes.add(recipe);
-
-
+                    listRecipes.add(recipe);
                 }
 
                 if(!listRecipes.isEmpty()) {
@@ -187,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         } catch (JSONException e) {
-
+            Log.v("parseJSONResponse", e.getMessage());
         }
     }
 
@@ -214,8 +191,6 @@ public class MainActivity extends AppCompatActivity {
         if(AccessToken.getCurrentAccessToken() == null) {
             startActivity(new Intent(MainActivity.this, LoginActivityFB.class));
             profile = Profile.getCurrentProfile();
-
-            //MyApplication.setFbUserId(profile.getId().substring(profile.getId().length() / 2, profile.getId().length()));
         } else {
             profile = Profile.getCurrentProfile();
             MyApplication.setFbUserId(profile.getId().substring(profile.getId().length() / 2, profile.getId().length()));

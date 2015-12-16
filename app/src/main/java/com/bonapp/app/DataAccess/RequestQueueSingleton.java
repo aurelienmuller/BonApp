@@ -1,4 +1,4 @@
-package DataAccess;
+package com.bonapp.app.DataAccess;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;

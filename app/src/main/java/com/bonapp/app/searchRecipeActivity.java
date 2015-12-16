@@ -30,8 +30,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import DataAccess.RequestQueueSingleton;
-import Model.Recipe;
+import com.bonapp.app.DataAccess.RequestQueueSingleton;
+import com.bonapp.app.Model.Recipe;
 
 /**
  * Created by etu25714 on 20/10/2015.
@@ -42,6 +42,7 @@ public class SearchRecipeActivity extends AppCompatActivity {
     private String searchText;
     private ArrayList<Recipe> ListRecipes;
     private Gson gson;
+    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -65,9 +66,9 @@ public class SearchRecipeActivity extends AppCompatActivity {
 
                 searchText = stringFormatter(searchText);
 
-                RequestQueue requestQueue = RequestQueueSingleton.getInstance().getRequestQueue();
+                requestQueue = RequestQueueSingleton.getInstance().getRequestQueue();
 
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,"http://food2fork.com/api/search?key=217401dcb0a4ad131cd118a528ce6cb4&q=" + searchText, new Response.Listener<JSONObject>() {
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, MyApplication.getFood2forkUrl() + searchText, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {

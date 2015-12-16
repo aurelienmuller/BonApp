@@ -48,4 +48,16 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_favorite_recipe">FavoriteRecipeActivity</string>
     <string name="suprfav">Retirer des favoris</string>
+    <string name="recetteexiste">Recette déjà dans vos favoris !</string>
+    <string name="erreurserveur">Erreur du serveur, réessayez plus tard !</string>
+    <string name="problemesurvenu">Problème survenu... Réessayez plus tard !</string>
+    <string name="favoris">Favoris</string>
+    <string name="ajouterfav">Ajouter cette recette à vos favoris?</string>
+    <string name="oui">Oui !</string>
+    <string name="non">Non</string>
+    <string name="supprimerfav">Retirer cette recette de vos favoris ?</string>
+    <string name="recetteajoutee">Recette ajoutée à vos favoris !</string>
+    <string name="recettesupprimee">Recette retirée de vos favoris !</string>
+    <string name="chargement">Chargement...</string>
+    <string name="chargementmsg">Vos recettes arrivent !</string>
 </resources>

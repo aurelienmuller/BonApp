@@ -39,4 +39,16 @@
     <string name="processing">Processing...</string>
     <string name="wait">Patience!</string>
     <string name="suprfav">Remove from favorites</string>
+    <string name="recetteexiste">Recipe already in your favorites!</string>
+    <string name="erreurserveur">Servor error, try again later!</string>
+    <string name="problemesurvenu">An error occurred... Try again later!</string>
+    <string name="favoris">Favorites</string>
+    <string name="ajouterfav">Add this recipe to your favorites?</string>
+    <string name="oui">Yes !</string>
+    <string name="non">No</string>
+    <string name="supprimerfav">Remove this recipe from your favorites?</string>
+    <string name="recetteajoutee">Recipe added to your favorites!</string>
+    <string name="recettesupprimee">Recipe removed from your favorites!</string>
+    <string name="chargement">Loading...</string>
+    <string name="chargementmsg">Your recipes are nearly there!</string>
 </resources>
