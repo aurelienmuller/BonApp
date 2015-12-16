@@ -51,4 +51,6 @@
     <string name="recettesupprimee">Recipe removed from your favorites!</string>
     <string name="chargement">Loading...</string>
     <string name="chargementmsg">Your recipes are nearly there!</string>
+    <string name="title_activity_login_activity_fb">BonApp - login</string>
+    <string name="title_activity_favorite_recipe">Recipe</string>
 </resources>

@@ -50,4 +50,6 @@
     <string name="recettesupprimee">Recette retirée de vos favoris !</string>
     <string name="chargement">Chargement...</string>
     <string name="chargementmsg">Vos recettes arrivent !</string>
+    <string name="title_activity_login_activity_fb">BonApp - connexion</string>
+    <string name="title_activity_favorite_recipe">Recette</string>
 </resources>
