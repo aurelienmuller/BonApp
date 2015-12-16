@@ -40,13 +40,17 @@ public class RecipeActivity extends AppCompatActivity {
 
     private WebView webView;
     private ProgressBar progressBar;
-    String recipeJson;
-    String userFavJson;
-    Recipe recipeToFavorite;
-    Profile profile;
-    private AlertDialog.Builder alertDialogBuilder;
+    private String userFavJson;
+    private Recipe recipeToFavorite;
+    private Profile profile;
     private AlertDialog alertDialog;
     private RequestQueue requestQueue;
+    private AlertDialog.Builder alertDialogBuilder;
+    private String userIdString;
+    private int userIdInt;
+    private Userfavorite newUserFav;
+    private Gson gson;
+    private String recipeJson;
 
 
     @Override
@@ -101,12 +105,31 @@ public class RecipeActivity extends AppCompatActivity {
         }
     }
 
+    public void createDialog() {
+        alertDialogBuilder = new AlertDialog.Builder(RecipeActivity.this);
+        alertDialogBuilder.setTitle(R.string.favoris)
+                .setMessage(R.string.ajouterfav)
+                .setCancelable(true)
+                .setPositiveButton(R.string.oui, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        addToRecipes();
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton(R.string.non, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        alertDialog = alertDialogBuilder.create();
+    }
+
     public void addToRecipes() {
-        String userIdString = MyApplication.getFbUserId();
-        int userIdInt = Integer.parseInt(userIdString);
+        userIdString = MyApplication.getFbUserId();
+        userIdInt = Integer.parseInt(userIdString);
         recipeToFavorite = (Recipe) (this.getIntent().getSerializableExtra(("recipe")));
-        Userfavorite newUserFav = new Userfavorite(recipeToFavorite.getRecipe_id() + userIdString, userIdInt, recipeToFavorite.getRecipe_id());
-        Gson gson = new Gson();
+        newUserFav = new Userfavorite(recipeToFavorite.getRecipe_id() + userIdString, userIdInt, recipeToFavorite.getRecipe_id());
+        gson = new Gson();
         recipeJson = gson.toJson(recipeToFavorite);
         userFavJson = gson.toJson(newUserFav);
 
@@ -143,24 +166,7 @@ public class RecipeActivity extends AppCompatActivity {
         requestQueue.add(requestRecipe);
     }
 
-    public void createDialog() {
-        alertDialogBuilder = new AlertDialog.Builder(RecipeActivity.this);
-        alertDialogBuilder.setTitle(R.string.favoris)
-                .setMessage(R.string.ajouterfav)
-                .setCancelable(true)
-                .setPositiveButton(R.string.oui, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        addToRecipes();
-                        dialog.cancel();
-                    }
-                })
-                .setNegativeButton(R.string.non, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        alertDialog = alertDialogBuilder.create();
-    }
+
 
     public void addToUserFavorites() {
         JsonObjectRequest requestUserFav = new JsonObjectRequest(Request.Method.POST, MyApplication.getBonAppUserfavoritesUrl(), userFavJson, new Response.Listener<JSONObject>() {
@@ -172,7 +178,6 @@ public class RecipeActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 deleteFromRecipes();
-                //Toast.makeText(RecipeActivity.this, "Userfavorites : " + error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
         requestUserFav.setRetryPolicy(new DefaultRetryPolicy(
@@ -187,7 +192,6 @@ public class RecipeActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(RecipeActivity.this, R.string.recettesupprimee, Toast.LENGTH_LONG).show();
-                //addToUserFavorites();
             }
         }, new Response.ErrorListener() {
             @Override

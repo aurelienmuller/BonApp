@@ -3,6 +3,7 @@ package com.bonapp.app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,9 +40,9 @@ import com.bonapp.app.Model.Recipe;
 public class SearchRecipeActivity extends AppCompatActivity {
     private Button validateButton;
     private EditText searchEditText;
-    private String searchText;
     private ArrayList<Recipe> ListRecipes;
     private Gson gson;
+    private String searchText;
     private RequestQueue requestQueue;
 
     @Override
@@ -62,50 +63,49 @@ public class SearchRecipeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                searchText = searchEditText.getText().toString();
-
-                searchText = stringFormatter(searchText);
-
-                requestQueue = RequestQueueSingleton.getInstance().getRequestQueue();
-
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, MyApplication.getFood2forkUrl() + searchText, new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        parseJSONResponse(response);
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                        Toast.makeText(SearchRecipeActivity.this, SearchRecipeActivity.this.getString(R.string.requesterror) + error.getMessage(), Toast.LENGTH_SHORT).show();
-
-                    }
-
-                });
-
-                requestQueue.add(request);
+                searchRecipe();
 
             }
         });
 
-        searchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            public boolean onEditorAction(TextView searchEditText, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_NULL
-                        && event.getAction() == KeyEvent.ACTION_DOWN) {
-                    validateButton.performClick();
-                }
-                return true;
-            }
-        });
+
     }
+
+    public void searchRecipe() {
+        searchText = searchEditText.getText().toString();
+
+        searchText = stringFormatter(searchText);
+
+        requestQueue = RequestQueueSingleton.getInstance().getRequestQueue();
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, MyApplication.getFood2forkUrl() + searchText, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                parseJSONResponse(response);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(SearchRecipeActivity.this, SearchRecipeActivity.this.getString(R.string.erreurserveur), Toast.LENGTH_SHORT).show();
+
+            }
+
+        });
+
+        requestQueue.add(request);
+    }
+
 
     private String stringFormatter(String text) {
         text = text.replace(" ","%20");
         text = text.replace("\n","%20");
         text = text.replace(".",",");
+        text = text.replace("/", ",");
+        text = text.replace("\\", ",");
 
         return text;
     }
@@ -122,31 +122,6 @@ public class SearchRecipeActivity extends AppCompatActivity {
                 Type listType = new TypeToken<List<Recipe>>(){}.getType();
                 ListRecipes = gson.fromJson(arrayRecipes.toString(), listType);
 
-                /*for(int i = 0; i < arrayRecipes.length(); i++) {
-                    JSONObject currentRecipe = arrayRecipes.getJSONObject(i);
-
-
-                    String publisher = currentRecipe.getString("publisher");
-
-                    String f2f_url = currentRecipe.getString("f2f_url");
-
-                    String recipe_id = currentRecipe.getString("recipe_id");
-
-                    String title = currentRecipe.getString("title");
-
-                    String image_url = currentRecipe.getString("image_url");
-
-                    String source_url = currentRecipe.getString("source_url");
-
-                    double social_rank = currentRecipe.getDouble("social_rank");
-
-                    String publisher_url = currentRecipe.getString("publisher_url");
-
-
-                    Recipe recipe = new Recipe(publisher, f2f_url, title, source_url, recipe_id, image_url, social_rank, publisher_url);
-                    ListRecipes.add(recipe);
-                }*/
-
                 if (!ListRecipes.isEmpty()) {
                     Intent i = new Intent(SearchRecipeActivity.this, ListRecipeActivity.class);
                     i.putExtra("listRecipes", ListRecipes);
@@ -159,7 +134,7 @@ public class SearchRecipeActivity extends AppCompatActivity {
 
             }
         } catch (JSONException e) {
-
+            Log.v("JSONException", e.getMessage());
         }
     }
 

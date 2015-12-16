@@ -15,8 +15,6 @@ import com.facebook.FacebookSdk;
 
 public class LoginActivityFB extends AppCompatActivity {
 
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         FacebookSdk.sdkInitialize(this.getApplicationContext());
@@ -26,10 +24,6 @@ public class LoginActivityFB extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-
-
     }
 
     @Override
@@ -38,16 +32,5 @@ public class LoginActivityFB extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
-
     }
-
-    /* @Override
-    public void onStop() {
-         super.onStop();
-         editor.putString("id", "");
-         editor.putString("username", "");
-         editor.commit();
-
-     }*/
-
 }

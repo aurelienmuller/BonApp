@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -38,24 +39,20 @@ import com.bonapp.app.DataAccess.RequestQueueSingleton;
 import com.bonapp.app.Model.Recipe;
 
 public class MainActivity extends AppCompatActivity {
-    //private RequestQueue requestQueue;
-    private ArrayList<Recipe> listRecipes;
-    private String user;
-    private String userid;
-    ProgressDialog progressDialog;
-    Gson gson;
-    SharedPreferences sharedPreferences;
-    Profile profile;
-    private RequestQueue requestQueue;
 
+    private ImageButton searchButton;
+    private ImageButton favoriteButton;
+    private ArrayList<Recipe> listRecipes;
+    private ProgressDialog progressDialog;
+    private RequestQueue requestQueue;
+    private String userIdString;
+    private Gson gson;
+    private Profile profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         super.onCreate(savedInstanceState);
-
-        sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
-        userid = sharedPreferences.getString("id", "");
 
 
         setContentView(R.layout.activity_main);
@@ -66,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
         gson = new Gson();
         listRecipes = new ArrayList<>();
 
-        final ImageButton searchButton = (ImageButton) findViewById(R.id.imageButtonSearch);
-        final ImageButton favoriteButton = (ImageButton) findViewById(R.id.imageButtonFav);
+        searchButton = (ImageButton) findViewById(R.id.imageButtonSearch);
+        favoriteButton = (ImageButton) findViewById(R.id.imageButtonFav);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle(R.string.chargement);
@@ -96,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
     private void getFavorites() {
         progressDialog.show();
 
-        String userIdString = profile.getId().substring(profile.getId().length()/2, profile.getId().length());
+        userIdString = profile.getId().substring(profile.getId().length() / 2, profile.getId().length());
 
         requestQueue = RequestQueueSingleton.getInstance().getRequestQueue();
 

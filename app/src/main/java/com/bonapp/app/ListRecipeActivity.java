@@ -19,9 +19,9 @@ import com.bonapp.app.Model.Recipe;
 
 public class ListRecipeActivity extends AppCompatActivity {
 
+    private ListView recipeListView;
     private ArrayList<Recipe> ListRecipes = new ArrayList<>();
-    String previousActivity;
-    //private ListView recipeListView;
+    private String previousActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -30,10 +30,9 @@ public class ListRecipeActivity extends AppCompatActivity {
 
         previousActivity = getIntent().getStringExtra("parent");
 
-        ListView recipeListView = (ListView) findViewById(R.id.recipeListView);
+        recipeListView = (ListView) findViewById(R.id.recipeListView);
 
 
-        //ListRecipes = new ArrayList<>();
         ListRecipes = (ArrayList<Recipe>) (this.getIntent().getSerializableExtra("listRecipes"));
 
         ArrayAdapter<Recipe> arrayAdapter = new ArrayAdapter<>(
@@ -47,7 +46,6 @@ public class ListRecipeActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent recipeIntent;
                 if(previousActivity.equals("MainActivity")) {
-                    //Toast.makeText(ListRecipeActivity.this, previousActivity, Toast.LENGTH_LONG).show();
                     recipeIntent = new Intent(ListRecipeActivity.this, FavoriteRecipeActivity.class);
                 } else {
                     recipeIntent = new Intent(ListRecipeActivity.this, RecipeActivity.class);

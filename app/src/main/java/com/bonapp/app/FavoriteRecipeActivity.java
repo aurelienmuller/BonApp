@@ -35,12 +35,13 @@ public class FavoriteRecipeActivity extends AppCompatActivity {
     private WebView webView;
     private ProgressBar progressBar;
     private RequestQueue requestQueue;
-    String recipeJson;
-    String userIdString;
-    Recipe recipeToFavorite;
-    Profile profile;
+    private String recipeJson;
+    private String userIdString;
+    private Recipe recipeToFavorite;
+    private Profile profile;
     private AlertDialog.Builder alertDialogBuilder;
     private AlertDialog alertDialog;
+    private Gson gson;
 
 
     @Override
@@ -122,7 +123,7 @@ public class FavoriteRecipeActivity extends AppCompatActivity {
     public void deleteUserfavorite() {
         userIdString = MyApplication.getFbUserId();
         recipeToFavorite = (Recipe) (this.getIntent().getSerializableExtra(("recipe")));
-        Gson gson = new Gson();
+        gson = new Gson();
         recipeJson = gson.toJson(recipeToFavorite);
 
         requestQueue = RequestQueueSingleton.getInstance().getRequestQueue();

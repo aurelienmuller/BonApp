@@ -35,11 +35,8 @@ import java.util.Arrays;
  */
 public class LoginActivityFBFragment extends Fragment {
 
-    //String id;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
-
     private TextView mTextDetails;
+    private LoginButton loginButton;
 
     private CallbackManager mCallbackManager;
     private FacebookCallback<LoginResult> mCallback = new FacebookCallback<LoginResult>() {
@@ -50,7 +47,6 @@ public class LoginActivityFBFragment extends Fragment {
         @Override
         public void onSuccess(LoginResult loginResult) {
 
-            //if(Profile.getCurrentProfile() == null) {
                 mProfileTracker = new ProfileTracker() {
                     @Override
                     protected void onCurrentProfileChanged(Profile profile, Profile profile2) {
@@ -89,8 +85,6 @@ public class LoginActivityFBFragment extends Fragment {
     public void displayWelcomeMessage(Profile profile) {
         if (profile != null) {
             mTextDetails.setText("Welcome " + profile.getName());
-
-
         }
     }
 
@@ -103,18 +97,7 @@ public class LoginActivityFBFragment extends Fragment {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
 
-        sharedPreferences = getActivity().getSharedPreferences("MyData", Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-
         mCallbackManager = CallbackManager.Factory.create();
-
-        boolean loggedIn = AccessToken.getCurrentAccessToken() != null;
-        /*if(loggedIn) {
-            Log.v("onCreate", "hello");
-
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            startActivity(intent);
-        }*/
     }
 
     @Override
@@ -128,7 +111,7 @@ public class LoginActivityFBFragment extends Fragment {
 
         mTextDetails = (TextView) view.findViewById((R.id.text_details));
 
-        LoginButton loginButton = (LoginButton) view.findViewById(R.id.login_button);
+        loginButton = (LoginButton) view.findViewById(R.id.login_button);
 
         loginButton.setReadPermissions(Arrays.asList("public_profile, email"));
         loginButton.setFragment(this);
