@@ -43,10 +43,6 @@
     <string name="wait">Patience!</string>
     <string name="facebook_app_id" translatable="false">887394014679392</string>
     <string name="title_activity_login_activity_fb">BonApp - connexion</string>
-<<<<<<< HEAD
-=======
-    <string name="action_settings">Settings</string>
->>>>>>> origin/master
     <string name="title_activity_favorite_recipe">Recette</string>
     <string name="suprfav">Retirer des favoris</string>
     <string name="recetteexiste">Recette déjà dans vos favoris !</string>
@@ -61,13 +57,12 @@
     <string name="recettesupprimee">Recette retirée de vos favoris !</string>
     <string name="chargement">Chargement...</string>
     <string name="chargementmsg">Vos recettes arrivent !</string>
-<<<<<<< HEAD
+
     <string name="noconnection">Pas de connexion</string>
     <string name="retry">Réessayer</string>
     <string name="quitter">Quitter</string>
     <string name="firstconnection">Premiere connexion! Bienvenue,</string>
     <string name="welcomemsg">Bienvenue,</string>
     <string name="recettedejasuppr">Cette recette n\'est plus dans vos favoris</string>
-=======
->>>>>>> origin/master
+
 </resources>

@@ -10,11 +10,7 @@
     <string name="textRechRec">Recherche de recettes</string>
     <string name="userTitleID">Connexion</string>
     <string name="valider">Valider</string>
-<<<<<<< HEAD
     <string name="rechercheIndications">Entrez les ingrédients souhaités, titre de recette...</string>
-=======
-    <string name="rechercheIndications">Ingrédients souhaités, titre...</string>
->>>>>>> origin/master
     <string name="utilisateurs">Utilisateurs</string>
     <string name="recettes">Recettes</string>
     <string name="recette">Recette</string>
@@ -55,7 +51,6 @@
     <string name="chargementmsg">Vos recettes arrivent !</string>
     <string name="title_activity_login_activity_fb">BonApp - connexion</string>
     <string name="title_activity_favorite_recipe">Recette</string>
-<<<<<<< HEAD
     <string name="noconnection">Pas de connexion</string>
     <string name="retry">Réessayer</string>
     <string name="quitter">Quitter</string>
@@ -63,6 +58,5 @@
     <string name="action_settings">Réglages</string>
     <string name="welcomemsg">Bienvenue, </string>
     <string name="recettedejasuppr">Cette recette n\'est plus dans vos favoris</string>
-=======
->>>>>>> origin/master
+
 </resources>
