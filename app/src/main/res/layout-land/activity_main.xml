@@ -17,7 +17,11 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/imageButtonSearch"
+<<<<<<< HEAD
             android:background="@drawable/searchlandvector"
+=======
+            android:background="@drawable/searchbuttonvector"
+>>>>>>> origin/master
             android:layout_gravity="start"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
@@ -32,7 +36,11 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/imageButtonFav"
+<<<<<<< HEAD
         android:background="@drawable/favoritelandvector"
+=======
+        android:background="@drawable/favoritebuttonvector"
+>>>>>>> origin/master
         android:layout_gravity="end"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="5dp"/>

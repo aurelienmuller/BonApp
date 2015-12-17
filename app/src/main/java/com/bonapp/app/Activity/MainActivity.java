@@ -1,7 +1,9 @@
 package com.bonapp.app.Activity;
 
 
+
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -32,7 +34,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-
 
 //Main activity. 1 button goes to the search page, the other makes a Volley request to get the current user's favorites
 //checks if the user is logged in in onStart
@@ -107,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(MainActivity.this, MainActivity.this.getString(R.string.requesterror), Toast.LENGTH_SHORT).show();
                 }
-
             }
 
         });
@@ -130,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             ArrayList<Recipe> listRecipes = new ArrayList<>();
             Gson gson = new Gson();
+
             JSONObject responseJSON = new JSONObject(response);
 
             if (responseJSON.has("userfavorites")) {
@@ -195,8 +196,5 @@ public class MainActivity extends AppCompatActivity {
                 profile = Profile.getCurrentProfile();
                 MyApplication.setFbUserId(profile.getId().substring(profile.getId().length() / 2, profile.getId().length()));
             }
-
-
     }
-
 }

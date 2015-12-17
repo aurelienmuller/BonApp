@@ -20,6 +20,7 @@ import com.bonapp.app.Model.Recipe;
 //displays the corresponding recipes from a VolleyRequest result (intent) in a ListView
 public class ListRecipeActivity extends AppCompatActivity {
 
+    private ListView recipeListView;
     private ArrayList<Recipe> ListRecipes = new ArrayList<>();
     private String previousActivity;
 
