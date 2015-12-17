@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">BonApp</string>
     <string name="buttonRechRec">Recettes</string>
     <string name="buttonRechUser">Utilisateurs</string>
     <string name="favorisTitleID">Ajouter aux favoris</string>
@@ -11,12 +10,12 @@
     <string name="textRechRec">Recherche de recettes</string>
     <string name="userTitleID">Connexion</string>
     <string name="valider">Valider</string>
-    <string name="rechercheIndications">Ingrédients</string>
+    <string name="rechercheIndications">Entrez les ingrédients souhaités, titre de recette...</string>
     <string name="utilisateurs">Utilisateurs</string>
     <string name="recettes">Recettes</string>
     <string name="recette">Recette</string>
     <string name="account">Compte</string>
-    <string name="requesterror">Erreur requête : </string>
+    <string name="requesterror">Erreur réseau</string>
     <string name="chargementFav">Chargement des favoris</string>
     <string name="action_sign_in">Connexion ou inscription</string>
     <string name="action_sign_in_short">Connexion</string>
@@ -37,4 +36,26 @@
     <string name="logout">Déconnexion</string>
     <string name="processing">Traitement en cours...</string>
     <string name="wait">Patience!</string>
+    <string name="suprfav">Retirer des favoris</string>
+    <string name="recetteexiste">Recette déjà dans vos favoris !</string>
+    <string name="erreurserveur">Erreur du serveur, réessayez plus tard !</string>
+    <string name="problemesurvenu">Problème survenu... Réessayez plus tard !</string>
+    <string name="favoris">Favoris</string>
+    <string name="ajouterfav">Ajouter cette recette à vos favoris ?</string>
+    <string name="oui">Oui !</string>
+    <string name="non">Non</string>
+    <string name="supprimerfav">Retirer cette recette de vos favoris ?</string>
+    <string name="recetteajoutee">Recette ajoutée à vos favoris !</string>
+    <string name="recettesupprimee">Recette retirée de vos favoris !</string>
+    <string name="chargement">Chargement...</string>
+    <string name="chargementmsg">Vos recettes arrivent !</string>
+    <string name="title_activity_login_activity_fb">BonApp - connexion</string>
+    <string name="title_activity_favorite_recipe">Recette</string>
+    <string name="noconnection">Pas de connexion</string>
+    <string name="retry">Réessayer</string>
+    <string name="quitter">Quitter</string>
+    <string name="firstconnection">Première connexion ! Bienvenue, </string>
+    <string name="action_settings">Réglages</string>
+    <string name="welcomemsg">Bienvenue, </string>
+    <string name="recettedejasuppr">Cette recette n\'est plus dans vos favoris</string>
 </resources>

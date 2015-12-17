@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">BonApp</string>
     <string name="buttonRechRec">Recipes</string>
     <string name="buttonRechUser">Users</string>
     <string name="favorisTitleID">Add to favorites</string>
@@ -11,12 +10,12 @@
     <string name="textRechRec">Recipes search</string>
     <string name="userTitleID">Login</string>
     <string name="valider">Validate</string>
-    <string name="rechercheIndications">Ingredients</string>
+    <string name="rechercheIndications">Enter wished ingredients, recipe title, ...</string>
     <string name="utilisateurs">Users</string>
     <string name="recettes">Recipes</string>
     <string name="recette">Recipe</string>
     <string name="account">Account</string>
-    <string name="requesterror">Request error : </string>
+    <string name="requesterror">Network error</string>
     <string name="chargementFav">Loading favorites</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
@@ -24,7 +23,6 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
-    <string name="permission_rationale"></string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="title_activity_login">Sign in</string>
@@ -38,4 +36,26 @@
     <string name="logout">Log out</string>
     <string name="processing">Processing...</string>
     <string name="wait">Patience!</string>
+    <string name="suprfav">Remove from favorites</string>
+    <string name="recetteexiste">Recipe already in your favorites!</string>
+    <string name="erreurserveur">Servor error, try again later!</string>
+    <string name="problemesurvenu">An error occurred... Try again later!</string>
+    <string name="favoris">Favorites</string>
+    <string name="ajouterfav">Add this recipe to your favorites?</string>
+    <string name="oui">Yes !</string>
+    <string name="non">No</string>
+    <string name="supprimerfav">Remove this recipe from your favorites?</string>
+    <string name="recetteajoutee">Recipe added to your favorites!</string>
+    <string name="recettesupprimee">Recipe removed from your favorites!</string>
+    <string name="chargement">Loading...</string>
+    <string name="chargementmsg">Your recipes are nearly there!</string>
+    <string name="title_activity_login_activity_fb">BonApp - login</string>
+    <string name="title_activity_favorite_recipe">Recipe</string>
+    <string name="noconnection">No connection</string>
+    <string name="retry">Retry</string>
+    <string name="quitter">Exit</string>
+    <string name="firstconnection">First connection! Welcome,</string>
+    <string name="action_settings">Settings</string>
+    <string name="welcomemsg">Welcome, </string>
+    <string name="recettedejasuppr">This recipe is not in your favorites anymore</string>
 </resources>

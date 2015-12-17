@@ -12,12 +12,12 @@
     <string name="rechercheUser">Recherche d\'utilisateur</string>
     <string name="valider">Valider</string>
     <string name="listeVide">Aucune recette correspondante</string>
-    <string name="rechercheIndications">Ingrédients</string>
+    <string name="rechercheIndications">Ingrédients souhaités, titre, ...</string>
     <string name="utilisateurs">Utilisateurs</string>
     <string name="recettes">Recettes</string>
     <string name="recette">Recette</string>
     <string name="account">Compte</string>
-    <string name="requesterror">Erreur requête : </string>
+    <string name="requesterror">Erreur réseau</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
@@ -25,13 +25,11 @@
     <string name="prompt_password">Password (optional)</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
+    <string name="action_settings">Settings</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
     <string name="chargementFav">Chargement des favoris</string>
     <string name="title_activity_register">S\'enregistrer</string>
     <string name="email">Email</string>
@@ -44,6 +42,25 @@
     <string name="processing">Traitement en cours...</string>
     <string name="wait">Patience!</string>
     <string name="facebook_app_id" translatable="false">887394014679392</string>
-    <string name="title_activity_login_activity_fb">LoginActivityFB</string>
-    <string name="action_settings">Settings</string>
+    <string name="title_activity_login_activity_fb">BonApp - connexion</string>
+    <string name="title_activity_favorite_recipe">Recette</string>
+    <string name="suprfav">Retirer des favoris</string>
+    <string name="recetteexiste">Recette déjà dans vos favoris !</string>
+    <string name="erreurserveur">Erreur du serveur, réessayez plus tard !</string>
+    <string name="problemesurvenu">Problème survenu... Réessayez plus tard !</string>
+    <string name="favoris">Favoris</string>
+    <string name="ajouterfav">Ajouter cette recette à vos favoris?</string>
+    <string name="oui">Oui !</string>
+    <string name="non">Non</string>
+    <string name="supprimerfav">Retirer cette recette de vos favoris ?</string>
+    <string name="recetteajoutee">Recette ajoutée à vos favoris !</string>
+    <string name="recettesupprimee">Recette retirée de vos favoris !</string>
+    <string name="chargement">Chargement...</string>
+    <string name="chargementmsg">Vos recettes arrivent !</string>
+    <string name="noconnection">Pas de connexion</string>
+    <string name="retry">Réessayer</string>
+    <string name="quitter">Quitter</string>
+    <string name="firstconnection">Premiere connexion! Bienvenue,</string>
+    <string name="welcomemsg">Bienvenue,</string>
+    <string name="recettedejasuppr">Cette recette n\'est plus dans vos favoris</string>
 </resources>

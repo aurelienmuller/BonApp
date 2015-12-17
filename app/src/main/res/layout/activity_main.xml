@@ -13,7 +13,7 @@
         android:id="@+id/imageButtonSearch"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:background="@drawable/searchbutton"
+        android:background="@drawable/searchbuttonvector"
         android:layout_weight="1"
         android:layout_marginBottom="5dp"
         />
@@ -24,7 +24,7 @@
         android:id="@+id/imageButtonFav"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:background="@drawable/favoritebutton"
+        android:background="@drawable/favoritebuttonvector"
         android:layout_weight="1"
         android:layout_marginTop="5dp"
         />
