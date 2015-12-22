@@ -143,6 +143,7 @@ public class SearchRecipeActivity extends AppCompatActivity {
                     startActivity(i);
                     ListRecipes.clear();
                 } else {
+                    progressDialog.dismiss();
                     Toast.makeText(SearchRecipeActivity.this, this.getString(R.string.listeVide), Toast.LENGTH_LONG).show();
                 }
 
