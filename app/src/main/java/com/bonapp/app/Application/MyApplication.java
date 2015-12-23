@@ -11,7 +11,7 @@ import com.facebook.FacebookSdk;
 public class MyApplication extends Application {
 
     private static String fbUserId;
-    private static final String f2fKey = "217401dcb0a4ad131cd118a528ce6cb4";
+    private static final String f2fKey = "*";
     private static final String food2forkUrl = "http://food2fork.com/api/search?key=" + f2fKey + "&q=";
     private static final String bonAppUrl = "*";
     private static final String bonAppUsersUrl = bonAppUrl + "users/";
